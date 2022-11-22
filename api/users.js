@@ -38,7 +38,7 @@ router.post("/login", async (req, res, next) => {
 // POST /api/users/register
 
 router.post("/register", async (req, res, next) => {
-    const { email, password } = req.body;
+    const { email, password, admin } = req.body;
 
     try {
         const existingUser = await getUserByEmail(email);
@@ -53,7 +53,7 @@ router.post("/register", async (req, res, next) => {
                 message: "Password must be 8 characters or longer.",
             })
         } else {
-            const user = await createUser({ email,password });
+            const user = await createUser({ email, password, admin });
             const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET);
             // const userData = jwt.verify(token, JWT_SECRET);
             res.send({ user, message: "Thank you for signing up! You're logged in!", token });

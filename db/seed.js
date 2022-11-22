@@ -1,5 +1,6 @@
 // creating tables, seeding tables with initial values
-const {client, createUser } = require('./index')
+const { createUser } = require('./index')
+const client = require ('./client')
 
 
 
