@@ -5,16 +5,18 @@ const SALT_COUNT = 10;
 async function createUser({ email, password, admin }) {
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
   try {
+    console.log("line 8");
     const {
       rows: [user],
     } = await client.query(
       `INSERT INTO users(email, password, admin)
                 VALUES ($1, $2, $3)
                 ON CONFLICT (email) DO NOTHING
-                RETURNING*;
+                RETURNING *;
             `,
       [email, hashedPassword, admin]
     );
+    console.log("line 18");
     delete user.password;
 
     return user;
@@ -92,8 +94,8 @@ async function getUserById(userId) {
 }
 
 module.exports = {
-    createUser, 
-    getUser,
-    getUserByEmail,
-    getUserById,
-}
+  createUser,
+  getUser,
+  getUserByEmail,
+  getUserById,
+};

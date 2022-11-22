@@ -57,17 +57,17 @@ async function dropTables(){
 async function createInitialUsers(){
     try{
         console.log("starting to create initial users")
-        const Leo = await createUser({email: 'leo@me.com', password: 'leocruz', admin: true});
+        const leo = await createUser({email: 'leo@me.com', password: 'leocruzz', admin: true});
 
-        const Dillan = await createUser({email: 'dillan@me.com', password: 'dillanmay', admin: true})
+        const dillan = await createUser({email: 'dillan@me.com', password: 'dillanmay', admin: true});
 
-        const Lex = await createUser({email: 'lex@me.com', password: 'lexmullin', admin: true})
+        const lex = await createUser({email: 'lex@me.com', password: 'lexmullin', admin: true});
 
-        const Alex = await createUser({email: 'alex@me.com', password: 'alexwinston', admin: true})
+        const alex = await createUser({email: 'alex@me.com', password: 'alexwinston', admin: true});
 
-        const Irfan = await createUser({email: 'irfan@me.com', password: 'irfanpekusic', admin: true})
+        const irfan = await createUser({email: 'irfan@me.com', password: 'irfanpekusic', admin: true});
 
-        const George = await createUser({email: 'george@me.com', password: 'curiousgeorge', admin: false})
+        const george = await createUser({email: 'george@me.com', password: 'curiousgeorge', admin: false});
 
         console.log("finished creating initial users")
     }catch(error){
