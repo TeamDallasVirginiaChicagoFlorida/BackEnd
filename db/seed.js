@@ -1,7 +1,5 @@
 // creating tables, seeding tables with initial values
-const {client 
-
-} = require('./index')
+const {client, createUser } = require('./index')
 
 
 
@@ -55,12 +53,35 @@ async function dropTables(){
         throw error;
     }
 }
+
+async function createInitialUsers(){
+    try{
+        console.log("starting to create initial users")
+        const leo = await createUser({email: 'leo@me.com', password: 'leocruzz', admin: true});
+
+        const dillan = await createUser({email: 'dillan@me.com', password: 'dillanmay', admin: true});
+
+        const lex = await createUser({email: 'lex@me.com', password: 'lexmullin', admin: true});
+
+        const alex = await createUser({email: 'alex@me.com', password: 'alexwinston', admin: true});
+
+        const irfan = await createUser({email: 'irfan@me.com', password: 'irfanpekusic', admin: true});
+
+        const george = await createUser({email: 'george@me.com', password: 'curiousgeorge', admin: false});
+
+        console.log("finished creating initial users")
+    }catch(error){
+        console.error("Error creating users!")
+        throw error;
+    }
+}
 async function rebuildDb() {
     try {
       client.connect();
   
       await dropTables();
       await createTables();
+      await createInitialUsers();
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;
