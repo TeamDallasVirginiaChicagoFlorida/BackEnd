@@ -103,6 +103,44 @@ async function getCarById(carId) {
     }
   }
   
+  async function updateCarPost(carId, fields = {}) {
+    const { tags } = fields;
+    delete fields.tags;
+
+    const setString = Object.keys(fields).map(
+      (key, index) =>`"${key }"=$${ index = 1 }`
+    ).join(',');
+    try {
+    
+      if (setString.length > 0) {
+        await client.query(`
+          UPDATE cars
+          SET ${ setString }
+          WHERE id=${ carId }
+          RETURNING *;
+        `, Object.values(fields));
+      }
+  
+      
+      if (tags === undefined) {
+        return await getCarById(carId);
+      }
+      // const tagList = await createTags(tags);
+      // const tagListIdString = tagList.map(
+      //   tag => `${ tag.id }`
+      // ).join(', ');
+
+      // await client.query(`
+      //   DELETE FROM cars
+      //   WHERE "carId"
+      //   NOT IN (${ tagListIdString })
+      //   AND "carId"=$1;
+      // `, [carId]);  
+      return await getCarById(carId);
+    } catch (error) {
+      throw error;
+    }
+  }
 
   
 
@@ -111,5 +149,5 @@ async function getCarById(carId) {
     getAllCars,
     getCarById,
     createCarPost,
-
+    updateCarPost
   }
