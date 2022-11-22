@@ -71,7 +71,7 @@ carsRouter.use((req, res, next) => {
 	next();
 })
 
-carsRouter.delete('/:postId', requireUser, async (req, res, next) => {
+carsRouter.delete('/:carId', requireUser, async (req, res, next) => {
     try {
       const post = await getCarById(req.params.carId);
   
@@ -94,5 +94,101 @@ carsRouter.delete('/:postId', requireUser, async (req, res, next) => {
       next({ name, message })
     }
   });
+
+  carsRouter.patch(
+	"/:carId",
+	requireUser,
+	requireActiveUser,
+	async (req, res, next) => {
+	  const { carId } = req.params;
+	  const { type,
+		make,
+		model,
+		year,
+		color,
+		price,
+		transmission_type,
+		mileage,
+		interior_color,
+		doors,
+		seats,
+		mpg,
+		inventory,
+		photo_url,
+		drive_type,
+		new_used = ''  } = req.body;
+  
+	  const updateFields = {};
+  
+	//   if ( && tags.length > 0) {
+	// 	updateFields.tags = tags.trim().split(/\s+/);
+	//   }
+  
+	  if (make) {
+		updateFields.make = make;
+	  }
+  
+	  if (model) {
+		updateFields.model = model;
+	  }
+
+	  if (year) {
+		updateFields.year = year;
+	  }
+	  if (color) {
+		updateFields.color = color;
+	  }
+	  if (price) {
+		updateFields.price = price;
+	  }
+	  if (transmission_type) {
+		updateFields.transmission_type = transmission_type;
+	  }
+	  if (mileage) {
+		updateFields.mileage = mileage;
+	  }
+	  if (interior_color) {
+		updateFields.interior_color = interior_color;
+	  }
+	  if (doors) {
+		updateFields.doors = doors;
+	  }
+	  if (seats) {
+		updateFields.seats = seats;
+	  }
+	  if (mpg) {
+		updateFields.mpg = mpg;
+	  }
+	  if (inventory) {
+		updateFields.inventory = inventory;
+	  }
+	  if (photo_url) {
+		updateFields.photo_url = photo_url;
+	  }
+	  if (drive_type) {
+		updateFields.drive_type = drive_type;
+	  }
+	  if (new_used) {
+		updateFields.new_used= new_used;
+	  }
+  
+	  try {
+		const originalCarPost = await getCarById(carId);
+  
+		if (originalCarPost.seller === req.user.id) {
+		  const updatedCarPost = await updatedCarPost(carId, updateFields);
+		  res.send({ post: updatedCarPost });
+		} else {
+		  next({
+			name: "UnauthorizedUserError",
+			message: "You cannot update a car that is not yours",
+		  });
+		}
+	  } catch ({ name, message }) {
+		next({ name, message });
+	  }
+	}
+  );
+  
 
 module.exports = router;
