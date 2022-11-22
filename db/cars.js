@@ -3,17 +3,13 @@ const client = require("./client")
 
 async function getAllCars(){
 	try {
-		const {rows:carId}= await client.query(`
-		SELECT id 
+		const {rows}= await client.query(`
+		SELECT *
 		FROM cars;
 		`)
-		const cars = await Promise.all(carId.map(
-			car=>getCarById(car.id)
-			
-		));
-		console.log(cars, 'get all cars')
-		return cars;
+		return rows;
 	} catch (error) {
+		console.log(error)
 		throw error;
 	}
 }
@@ -22,7 +18,7 @@ async function getCarById(carId) {
     try {
       const { rows: [car] } = await client.query(`
         SELECT *
-        FROM cars;
+        FROM cars
         WHERE id=$1;
       `, [carId]);
   
@@ -32,7 +28,6 @@ async function getCarById(carId) {
           message: "Could not find a car with that carId"
         };
       }
-  console.log(post, "GOT CAR BY ID!")
       return car;
     } catch (error) {
       throw error;

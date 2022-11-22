@@ -1,9 +1,13 @@
 // creating tables, seeding tables with initial values
 const { 
     createUser,
+    getAllCars,
     getUser,
     getUserByEmail,
     getUserById,
+    createCarPost,
+    getCarById,
+    
 } = require('./index')
 const client = require ('./client')
 
@@ -82,6 +86,35 @@ async function createInitialUsers(){
     }
 }
 
+async function createInitialCars() {
+ try {
+    console.log('Starting to create initial cars...')
+    const car1 = await createCarPost({seller: 1,
+        type: 'Sedan' ,
+        make: 'Toyota',
+        model: 'Corolla',
+        year: 2018,
+        color: "black",
+        price: 15000.00,
+        transmission_type: "automatic",
+        mileage: 50000,
+        interior_color: "gray",
+        doors: 4,
+        seats: 5,
+        mpg: 20,
+        inventory: 1,
+        photo_url: '',
+        drive_type: "2WD",
+        new_used: "used" })
+    console.log('Finished creating initial cars...')
+ } catch (error) {
+    console.error("Error creating initial cars...")
+        throw error
+    }
+    
+ }
+
+
 async function testDb() {
     try {
         console.log("Starting database tests")
@@ -101,6 +134,16 @@ async function testDb() {
         console.log("Result: ", lex)
         console.log("getUserById function works")
 
+        console.log("Checking getAllCars function")
+        const allCars = await getAllCars();
+        console.log("Result: ", allCars)
+        console.log("getAllCars function works")
+
+        console.log("Checking getCarById function")
+        const car = await getCarById(1);
+        console.log("Result:", car)
+        console.log("getCarById function works")
+        
         console.log("Finished with database tests")
     } catch (error) {
         console.error("An error occured on one of the tests!")
@@ -115,6 +158,7 @@ async function rebuildDb() {
       await dropTables();
       await createTables();
       await createInitialUsers();
+      await createInitialCars();
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;
