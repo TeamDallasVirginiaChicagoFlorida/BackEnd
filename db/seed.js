@@ -1,15 +1,9 @@
 // creating tables, seeding tables with initial values
+const {client 
+
+} = require('./index')
 
 
-
-async function dropTables(){
-    try{
-        await client.query(`DROP TABLE IF EXISTS users`)
-        await client.query(`DROP TABLE IF EXISTS cars`)
-    }catch (error){
-        throw error;
-    }
-}
 
 async function createTables(){
     console.log("Starting to build tables...")
@@ -20,8 +14,8 @@ async function createTables(){
             email VARCHAR(255) UNIQUE NOT NULL,
             password VARCHAR(255) UNIQUE NOT NULL,
             photo_url VARCHAR(255) NOT NULL,
-            admin BOOLEAN DEFAULT false;
-        )`
+            admin BOOLEAN DEFAULT false
+        );`
         )
         await client.query(`
         CREATE TABLE cars(
@@ -41,10 +35,39 @@ async function createTables(){
             inventory INTEGER NOT NULL,
             photo_url VARCHAR(255) NOT NULL,
             drive_type VARCHAR(255) NOT NULL,
-            new_used VARCHAR(255) NOT NULL;
-        )`
+            new_used VARCHAR(255) NOT NULL
+        );`
         )
+        console.log("finished creating tables...")
     }catch(error){
         throw error
     }
 }
+
+async function dropTables(){
+    try{
+        console.log("starting to drop tables..")
+        await client.query(`DROP TABLE IF EXISTS users`)
+        await client.query(`DROP TABLE IF EXISTS cars`)
+        console.log("finished dropping tables..")
+    }catch (error){
+        throw error;
+    }
+}
+async function rebuildDb() {
+    try {
+      client.connect();
+  
+      await dropTables();
+      await createTables();
+    } catch (error) {
+      console.log("Error during rebuildDB")
+      throw error;
+    } 
+  }
+
+
+rebuildDb()
+// .then(testDB)
+.catch(console.error)
+.finally(() => client.end());
