@@ -45,8 +45,8 @@ const usersRouter = require('./users');
 router.use('/users', usersRouter);
 
 // ROUTER: /api/cars
-const activitiesRouter = require('./cars');
-router.use('/cars', activitiesRouter);
+const carsRouter = require('./cars');
+router.use('/cars', carsRouter);
 
 
 // ROUTER: 404 Error

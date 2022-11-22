@@ -1,4 +1,4 @@
-const client = require("./client");
+const client = require("./index");
 const bcrypt = require("bcrypt");
 const SALT_COUNT = 10;
 
