@@ -1,5 +1,10 @@
 // creating tables, seeding tables with initial values
-const { createUser } = require('./index')
+const { 
+    createUser,
+    getUser,
+    getUserByEmail,
+    getUserById,
+} = require('./index')
 const client = require ('./client')
 
 
@@ -76,6 +81,33 @@ async function createInitialUsers(){
         throw error;
     }
 }
+
+async function testDb() {
+    try {
+        console.log("Starting database tests")
+
+        console.log("Checking getUser function")
+        const user = await getUser({email: "leo@me.com", password:"leocruzz"});
+        console.log("Result: ", user)
+        console.log("getUser function works")
+
+        console.log("Checking getUserByEmail function")
+        const leo = await getUserByEmail("leo@me.com")
+        console.log("Result: ", leo)
+        console.log("getUserByEmail function works")
+
+        console.log("Checking getUserById function")
+        const lex = await getUserById(3)
+        console.log("Result: ", lex)
+        console.log("getUserById function works")
+
+        console.log("Finished with database tests")
+    } catch (error) {
+        console.error("An error occured on one of the tests!")
+        throw error
+    }
+}
+
 async function rebuildDb() {
     try {
       client.connect();
@@ -91,6 +123,6 @@ async function rebuildDb() {
 
 
 rebuildDb()
-// .then(testDB)
+.then(testDb)
 .catch(console.error)
 .finally(() => client.end());
