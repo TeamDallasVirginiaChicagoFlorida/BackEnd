@@ -20,7 +20,7 @@ router.post("/login", async (req, res, next) => {
       const user = await getUser({ email, password });
       if (user) {
         const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET);
-        const userData = jwt.verify(token, JWT_SECRET);
+        // const userData = jwt.verify(token, JWT_SECRET);
         res.send({ user, message: "You're logged in!", token });
         return user;
       } else {
@@ -55,7 +55,7 @@ router.post("/register", async (req, res, next) => {
         } else {
             const user = await createUser({ email,password });
             const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET);
-            const userData = jwt.verify(token, JWT_SECRET);
+            // const userData = jwt.verify(token, JWT_SECRET);
             res.send({ user, message: "Thank you for signing up! You're logged in!", token });
             return user;
         }
@@ -65,5 +65,14 @@ router.post("/register", async (req, res, next) => {
 });
 
 // GET /api/users/me
+router.get("/me", requireUser, async(req, res, next)=>{
+    const email=req.user.email
+    try {
+        const userInfo= await getUserByEmail(email)
+        res.send(userInfo)
+    } catch (error) {
+        next (error);
+    }
+})
 
 module.exports = router;
