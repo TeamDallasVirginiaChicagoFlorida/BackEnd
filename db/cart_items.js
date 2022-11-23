@@ -69,6 +69,8 @@ async function removeCartItems(cartId, fields = {}){
     }
   }
 
+  //Need a function that gets all of the cars that are in a specific cart so that we can then look at those in the getCartByUser function
+
   module.exports = {
 	// getCartByBuyer,
 	addCarToCart,
