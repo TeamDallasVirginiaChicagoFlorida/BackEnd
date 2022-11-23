@@ -92,7 +92,6 @@ async function createInitialCars() {
     console.log('Starting to create initial cars...')
     for (let i = 0; i < dataCopy.length; i++) {
     const cars = await createCarPost (dataCopy[i])
-    return cars
     }
 
     // const car1 = await createCarPost({seller: 1,
