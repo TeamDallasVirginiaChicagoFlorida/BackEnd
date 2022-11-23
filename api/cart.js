@@ -11,9 +11,8 @@ router.get("/", requireUser, async(req, res, next)=>{
      const userData = await getUserByEmail(req.user.email)
      const userId= userData.id;
     try {
-        const usersCart= await getCartByBuyer(2)
+        const usersCart= await getCartByBuyer(userId)
         res.send(usersCart)
-        console.log(usersCart, 'is this working')
     } catch (error) {
         throw error
     }

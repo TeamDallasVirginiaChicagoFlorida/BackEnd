@@ -136,8 +136,14 @@ async function createInitialCars() {
  async function createInitialCarts(){
     try{
         console.log('Starting to create initial carts...')
+        const georgeCart= await createCart(6)
+        console.log('finished creating initial carts')
+    }catch(error){
+        throw error
     }
  }
+
+
 
 
 async function testDb() {
@@ -170,13 +176,19 @@ async function testDb() {
         // console.log("getCarById function works")
 
         console.log("checking getcartByBuyer function")
-        
+        const test = await getCartByBuyer(6)
+        console.log("buyer's cart", test)
+
+        console.log("checking for checkout, getOrderHistory")
+        const testingfunctions = await checkout(1)
+        const orderHistory = await getOrderHistory(6)
+        createCart(6)
+        console.log('are these functions working??', testingfunctions, orderHistory)
+
         console.log("Finished with database tests")
     } catch (error) {
         console.error("An error occurred on one of the tests!")
         throw error
-
-
     }
 }
 
@@ -188,6 +200,8 @@ async function rebuildDb() {
       await createTables();
       await createInitialUsers();
       await createInitialCars();
+      await createInitialCarts();
+
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;
