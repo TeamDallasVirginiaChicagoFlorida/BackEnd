@@ -9,7 +9,7 @@ const {
     getCarById,
     
 } = require('./index')
-const client = require ('./client')
+const {client} = require ('./client')
 const dataCopy = require ('./databank')
 
 
