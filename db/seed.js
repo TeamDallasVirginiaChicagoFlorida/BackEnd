@@ -8,10 +8,12 @@ const {
     createCarPost,
     getCarById,
     createCart,
-    checkout,
+    checkout, 
     getCartByBuyer,
-    getOrderHistory
-    
+    getOrderHistory,
+    addCarToCart, 
+	getCarsByCart,
+	removeCartItems
 } = require('./index')
 const {client} = require ('./client')
 const dataCopy = require ('./databank')
@@ -65,7 +67,7 @@ async function createTables(){
         await client.query(`
         CREATE TABLE cart_items(
             id SERIAL PRIMARY KEY,
-            car INTEGER REFERENCES cars(id),
+            car INTEGER REFERENCES cars(id) UNIQUE,
             cart INTEGER REFERENCES carts(id),
             quantity INTEGER DEFAULT 1
         );`
@@ -137,7 +139,8 @@ async function createInitialCars() {
     try{
         console.log('Starting to create initial carts...')
         const georgeCart= await createCart(6)
-        console.log('finished creating initial carts')
+        await addCarToCart({car: 1, cart:1})
+        console.log('Finished creating initial carts')
     }catch(error){
         throw error
     }
@@ -175,15 +178,16 @@ async function testDb() {
         // console.log("Result:", car)
         // console.log("getCarById function works")
 
-        console.log("checking getcartByBuyer function")
+        console.log("Testing getCartByBuyer function")
         const test = await getCartByBuyer(6)
-        console.log("buyer's cart", test)
+        console.log("Result:", test)
+        console.log('Finished testing getCartByBuyer')
 
-        console.log("checking for checkout, getOrderHistory")
-        const testingfunctions = await checkout(1)
-        const orderHistory = await getOrderHistory(6)
-        createCart(6)
-        console.log('are these functions working??', testingfunctions, orderHistory)
+        // console.log("Testing checkout and getOrderHistory")
+        // const testingfunctions = await checkout(1)
+        // const orderHistory = await getOrderHistory(6)
+        // await createCart(6)
+        // console.log('Finished testing checkout and getOrderHistory')
 
         console.log("Finished with database tests")
     } catch (error) {
@@ -194,7 +198,7 @@ async function testDb() {
 
 async function rebuildDb() {
     try {
-      client.connect();
+      await client.connect();
   
       await dropTables();
       await createTables();

@@ -1,31 +1,30 @@
 const {client}= require("./client");
 
-async function getCartByBuyer(id) {
-	try {
-		const {rows: [cart], } = await client.query(`
-		SELECT *
-		FROM cart
-		WHERE id=$1
-		`, [id]);
-		return cart;
-	} catch (error) {
-		throw error
+// async function getCartByBuyer(id) {
+// 	try {
+// 		const {rows: [cart], } = await client.query(`
+// 		SELECT *
+// 		FROM cart
+// 		WHERE id=$1
+// 		`, [id]);
+// 		return cart;
+// 	} catch (error) {
+// 		throw error
 		
-	}
-}
+// 	}
+// }
 
-async function addCarToCart({make, model, color, price}){
+async function addCarToCart({car, cart}){
 	try {
-		const { rows: [car], } = await client.query(`
-		INSERT INTO cart_items(make, model, color, price)
-		VALUES ($1, $2, $3, $4)
-		ON CONFLICT (make, model, color, price)
+		const { rows: [cartcar], } = await client.query(`
+		INSERT INTO cart_items(car, cart)
+		VALUES ($1, $2)
+		ON CONFLICT (car) DO NOTHING
 		RETURNING *;
-		`, [make, model, color, price]);
-		return car
+		`, [car, cart]);
+		return cartcar
 	} catch (error) {
 		throw error;
-		
 	}
 }
 
@@ -70,8 +69,8 @@ async function removeCartItems(cartId, fields = {}){
     }
   }
 
-  module.export = {
-	getCartByBuyer,
+  module.exports = {
+	// getCartByBuyer,
 	addCarToCart,
 	getCarsByCart,
 	removeCartItems,
