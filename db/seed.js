@@ -82,6 +82,9 @@ async function createTables(){
 async function dropTables(){
     try{
         console.log("starting to drop tables..")
+        await client.query(`DROP TABLE IF EXISTS carts`)
+        await client.query(`DROP TABLE IF EXISTS cart_items`)
+        await client.query(`DROP TABLE IF EXISTS orders`)
         await client.query(`DROP TABLE IF EXISTS cars`)
         await client.query(`DROP TABLE IF EXISTS users`)
         console.log("finished dropping tables..")
