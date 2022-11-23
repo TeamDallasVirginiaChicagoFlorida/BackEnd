@@ -1999,3 +1999,8 @@ const data = [
     new_used: "used",
   },
 ];
+
+
+const dataCopy = () => {return [...data]}
+
+module.exports = { dataCopy }

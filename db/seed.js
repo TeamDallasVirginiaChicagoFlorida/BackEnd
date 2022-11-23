@@ -10,6 +10,7 @@ const {
     
 } = require('./index')
 const client = require ('./client')
+const dataCopy = require ('./databank')
 
 
 
@@ -89,23 +90,24 @@ async function createInitialUsers(){
 async function createInitialCars() {
  try {
     console.log('Starting to create initial cars...')
-    const car1 = await createCarPost({seller: 1,
-        type: 'Sedan' ,
-        make: 'Toyota',
-        model: 'Corolla',
-        year: 2018,
-        color: "black",
-        price: 15000.00,
-        transmission_type: "automatic",
-        mileage: 50000,
-        interior_color: "gray",
-        doors: 4,
-        seats: 5,
-        mpg: 20,
-        inventory: 1,
-        photo_url: '',
-        drive_type: "2WD",
-        new_used: "used" })
+    for (entry in dataCopy) {await createCarPost (entry)}
+    // const car1 = await createCarPost({seller: 1,
+    //     type: 'Sedan' ,
+    //     make: 'Toyota',
+    //     model: 'Corolla',
+    //     year: 2018,
+    //     color: "black",
+    //     price: 15000.00,
+    //     transmission_type: "automatic",
+    //     mileage: 50000,
+    //     interior_color: "gray",
+    //     doors: 4,
+    //     seats: 5,
+    //     mpg: 20,
+    //     inventory: 1,
+    //     photo_url: '',
+    //     drive_type: "2WD",
+    //     new_used: "used" })
     console.log('Finished creating initial cars...')
  } catch (error) {
     console.error("Error creating initial cars...")
