@@ -7,6 +7,10 @@ const {
     getUserById,
     createCarPost,
     getCarById,
+    createCart,
+    checkout,
+    getCartByBuyer,
+    getOrderHistory
     
 } = require('./index')
 const {client} = require ('./client')
@@ -122,30 +126,17 @@ async function createInitialCars() {
     for (let i = 0; i < dataCopy.length; i++) {
     const cars = await createCarPost (dataCopy[i])
     }
-
-    // const car1 = await createCarPost({seller: 1,
-    //     type: 'Sedan' ,
-    //     make: 'Toyota',
-    //     model: 'Corolla',
-    //     year: 2018,
-    //     color: "black",
-    //     price: 15000.00,
-    //     transmission_type: "automatic",
-    //     mileage: 50000,
-    //     interior_color: "gray",
-    //     doors: 4,
-    //     seats: 5,
-    //     mpg: 20,
-    //     inventory: 1,
-    //     photo_url: '',
-    //     drive_type: "2WD",
-    //     new_used: "used" })
     console.log('Finished creating initial cars...')
  } catch (error) {
     console.error("Error creating initial cars...")
         throw error
     }
-    
+ }
+ 
+ async function createInitialCarts(){
+    try{
+        console.log('Starting to create initial carts...')
+    }
  }
 
 
@@ -177,11 +168,15 @@ async function testDb() {
         // const car = await getCarById(1);
         // console.log("Result:", car)
         // console.log("getCarById function works")
+
+        console.log("checking getcartByBuyer function")
         
         console.log("Finished with database tests")
     } catch (error) {
         console.error("An error occurred on one of the tests!")
         throw error
+
+
     }
 }
 
