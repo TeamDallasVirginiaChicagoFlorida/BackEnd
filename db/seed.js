@@ -90,7 +90,11 @@ async function createInitialUsers(){
 async function createInitialCars() {
  try {
     console.log('Starting to create initial cars...')
-    for (entry in dataCopy) {await createCarPost (entry)}
+    for (entry in dataCopy) {
+    const cars = await createCarPost (entry)
+    return cars
+    }
+
     // const car1 = await createCarPost({seller: 1,
     //     type: 'Sedan' ,
     //     make: 'Toyota',

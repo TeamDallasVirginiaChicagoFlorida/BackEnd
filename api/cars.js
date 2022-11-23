@@ -1,8 +1,9 @@
 const express = require("express");
 const { getAllCars } = require("../db");
 const router = express.Router();
+const requireUser = require("./utils")
 
-carsRouter.get("/", async (req, res, next)=>{
+router.get("/", async (req, res, next)=>{
 	const postData = {};
 	try {
 		const allCars = await getAllCars(postData);
@@ -12,11 +13,11 @@ carsRouter.get("/", async (req, res, next)=>{
 }});
 
 
-carsRouter.post("/",requireUser,
-requireActiveUser,
+router.post("/",requireUser,
+
 async (req, res, next) => {
 	console.log("req dot body", req.body);
-  const {seller,
+  const {
     type,
     make,
     model,
@@ -32,9 +33,7 @@ async (req, res, next) => {
     inventory,
     photo_url,
     drive_type,
-    new_used = '' } = req.body;
-
-	const tagArr = tags.trim().split(/\s+/);
+    new_used} = req.body;
 	const postData = {};
 	
 	try {
@@ -47,18 +46,18 @@ async (req, res, next) => {
 		postData.price= price
 		postData.transmission_type = transmission_type
 		postData.mileage =mileage
-	postData.interior_color = interior_color
-	postData.doors = doors
-	postData.seats = seats
-	postData.mpg = mpg
-	postData.inventory = inventory
-	postData.photo_url = photo_url
-	postData.drive_type = drive_type
-	postData.new_used = new_used
+		postData.interior_color = interior_color
+		postData.doors = doors
+		postData.seats = seats
+		postData.mpg = mpg
+		postData.inventory = inventory
+		postData.photo_url = photo_url
+		postData.drive_type = drive_type
+		postData.new_used = new_used
 	const post = await createCarPost(postData);
 	
 	if (post) {
-		res.send({ post });
+		res.send( {post} );
 	}
 } catch ({ name, message }) {
 	next({ name, message });
@@ -66,12 +65,12 @@ async (req, res, next) => {
 }
 );
 
-carsRouter.use((req, res, next) => {
+router.use((req, res, next) => {
 	console.log("request is being made to /cars");
 	next();
 })
 
-carsRouter.delete('/:carId', requireUser, async (req, res, next) => {
+router.delete('/:carId', requireUser, async (req, res, next) => {
     try {
       const post = await getCarById(req.params.carId);
   
@@ -95,10 +94,9 @@ carsRouter.delete('/:carId', requireUser, async (req, res, next) => {
     }
   });
 
-  carsRouter.patch(
+  router.patch(
 	"/:carId",
 	requireUser,
-	requireActiveUser,
 	async (req, res, next) => {
 	  const { carId } = req.params;
 	  const { type,
@@ -123,6 +121,9 @@ carsRouter.delete('/:carId', requireUser, async (req, res, next) => {
 	//   if ( && tags.length > 0) {
 	// 	updateFields.tags = tags.trim().split(/\s+/);
 	//   }
+	if (type) {
+		updateFields.type = type;
+	}
   
 	  if (make) {
 		updateFields.make = make;

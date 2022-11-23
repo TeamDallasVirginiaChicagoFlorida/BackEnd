@@ -2003,4 +2003,4 @@ const data = [
 
 const dataCopy = () => {return [...data]}
 
-module.exports = { dataCopy }
+module.exports =  dataCopy 
