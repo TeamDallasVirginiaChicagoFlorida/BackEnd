@@ -48,16 +48,16 @@ async function createTables(){
             new_used VARCHAR(255) NOT NULL
         );`
         )
-
         await client.query(`
         CREATE TABLE carts(
             id SERIAL PRIMARY KEY,
             buyer INTEGER REFERENCES users(id),
-            status BOOLEAN DEFAULT TRUE,
+            status BOOLEAN DEFAULT TRUE
             
-        );` 
-        )
-
+            );` 
+            )
+            
+            console.log('did it make to here')
         await client.query(`
         CREATE TABLE cart_items(
             id SERIAL PRIMARY KEY,
@@ -71,7 +71,8 @@ async function createTables(){
             id SERIAL PRIMARY KEY,
             cart INTEGER REFERENCES carts(id),
             order_date VARCHAR(255) NOT NULL
-        )`)
+        );`
+        )
 
         console.log("finished creating tables...")
     }catch(error){
@@ -82,9 +83,9 @@ async function createTables(){
 async function dropTables(){
     try{
         console.log("starting to drop tables..")
-        await client.query(`DROP TABLE IF EXISTS carts`)
-        await client.query(`DROP TABLE IF EXISTS cart_items`)
         await client.query(`DROP TABLE IF EXISTS orders`)
+        await client.query(`DROP TABLE IF EXISTS cart_items`)
+        await client.query(`DROP TABLE IF EXISTS carts`)
         await client.query(`DROP TABLE IF EXISTS cars`)
         await client.query(`DROP TABLE IF EXISTS users`)
         console.log("finished dropping tables..")
@@ -167,19 +168,19 @@ async function testDb() {
         console.log("Result: ", lex)
         console.log("getUserById function works")
 
-        console.log("Checking getAllCars function")
-        const allCars = await getAllCars();
-        console.log("Result: ", allCars)
-        console.log("getAllCars function works")
+        // console.log("Checking getAllCars function")
+        // const allCars = await getAllCars();
+        // console.log("Result: ", allCars)
+        // console.log("getAllCars function works")
 
-        console.log("Checking getCarById function")
-        const car = await getCarById(1);
-        console.log("Result:", car)
-        console.log("getCarById function works")
+        // console.log("Checking getCarById function")
+        // const car = await getCarById(1);
+        // console.log("Result:", car)
+        // console.log("getCarById function works")
         
         console.log("Finished with database tests")
     } catch (error) {
-        console.error("An error occured on one of the tests!")
+        console.error("An error occurred on one of the tests!")
         throw error
     }
 }
