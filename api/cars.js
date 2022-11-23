@@ -1,7 +1,7 @@
 const express = require("express");
 const { getAllCars } = require("../db");
 const router = express.Router();
-const requireUser = require("./utils")
+const {requireUser} = require("./utils")
 
 router.get("/", async (req, res, next)=>{
 	const postData = {};
@@ -13,9 +13,7 @@ router.get("/", async (req, res, next)=>{
 }});
 
 
-router.post("/",requireUser,
-
-async (req, res, next) => {
+router.post("/", requireUser, async (req, res, next) => {
 	console.log("req dot body", req.body);
   const {
     type,
@@ -45,7 +43,7 @@ async (req, res, next) => {
 		postData.color = color
 		postData.price= price
 		postData.transmission_type = transmission_type
-		postData.mileage =mileage
+		postData.mileage = mileage
 		postData.interior_color = interior_color
 		postData.doors = doors
 		postData.seats = seats
