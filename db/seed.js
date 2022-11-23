@@ -48,6 +48,31 @@ async function createTables(){
             new_used VARCHAR(255) NOT NULL
         );`
         )
+
+        await client.query(`
+        CREATE TABLE carts(
+            id SERIAL PRIMARY KEY,
+            buyer INTEGER REFERENCES users(id),
+            status BOOLEAN DEFAULT TRUE,
+            
+        );` 
+        )
+
+        await client.query(`
+        CREATE TABLE cart_items(
+            id SERIAL PRIMARY KEY,
+            car INTEGER REFERENCES cars(id),
+            cart INTEGER REFERENCES carts(id),
+            quantity INTEGER DEFAULT 1
+        );`
+        )
+        await client.query(`
+        CREATE TABLE orders(
+            id SERIAL PRIMARY KEY,
+            cart INTEGER REFERENCES carts(id),
+            order_date VARCHAR(255) NOT NULL
+        )`)
+
         console.log("finished creating tables...")
     }catch(error){
         throw error
