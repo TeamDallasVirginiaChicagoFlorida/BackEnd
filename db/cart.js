@@ -1,4 +1,5 @@
 const { client } = require("./client");
+const {getCarsByCart} = require('./index')
 
 //creates an empty cart to be done by default when a user is created, or after checkout to create a new empty cart
 async function createCart( buyer ) {

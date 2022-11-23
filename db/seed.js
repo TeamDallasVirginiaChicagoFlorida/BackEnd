@@ -183,11 +183,13 @@ async function testDb() {
         console.log("Result:", test)
         console.log('Finished testing getCartByBuyer')
 
+        const testingGetCarsByCart = await getCarsByCart(1)
+        console.log("Result:", testingGetCarsByCart)
         // console.log("Testing checkout and getOrderHistory")
         // const testingfunctions = await checkout(1)
         // const orderHistory = await getOrderHistory(6)
         // await createCart(6)
-        // console.log('Finished testing checkout and getOrderHistory')
+        console.log('Finished testing getCarsByCart')
 
         console.log("Finished with database tests")
     } catch (error) {

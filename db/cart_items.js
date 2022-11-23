@@ -28,13 +28,14 @@ async function addCarToCart({car, cart}){
 	}
 }
 
-async function getCarsByCart({id}){
+async function getCarsByCart(id){
 	try {
 		const {rows: cars } = await client.query(`
 		SELECT *
-		FROM cars
-		WHERE "carId"=$1;
-		`, [id]);
+		FROM cart_items
+		WHERE cart=$1;
+		`, [id])
+		console.log(cars, 'this is cars')
 		return cars
 	} catch (error) {
 		throw error
