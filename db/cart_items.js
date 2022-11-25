@@ -35,36 +35,23 @@ async function getCarsByCart(id){
 		FROM cart_items
 		WHERE cart=$1;
 		`, [id])
-		console.log(cars, 'this is cars')
 		return cars
 	} catch (error) {
 		throw error
 	}
 }
 
-async function removeCartItems(cartId, fields = {}){
-	const { tags } = fields;
-    delete fields.tags;
-
-    const setString = Object.keys(fields).map(
-      (key, index) =>`"${key }"=$${ index = 1 }`
-    ).join(',');
-    try {
-    
-      if (setString.length > 0) {
-        await client.query(`
-          UPDATE cart
-          SET ${ setString }
-          WHERE id=${ cartId }
-          RETURNING *;
-        `, Object.values(fields));
-      }
-  
-      
-      if (tags === undefined) {
-        return await getCarsByCart(cartId);
-      }
-	  return await getCarsByCart(cartId);
+async function removeCartItems(id){
+	try{
+		const {
+			rows: [car],
+		} = await client.query(
+			`
+			DELETE FROM cart_items WHERE id=$1
+			RETURNING *;
+			`, [id]
+		)
+		return car;
     } catch (error) {
       throw error;
     }
