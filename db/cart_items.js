@@ -16,7 +16,7 @@ const {client}= require("./client");
 
 async function addCarToCart({car, cart}){
 	try {
-		const { rows: [cartcar], } = await client.query(`
+		const { rows: [cartCar], } = await client.query(`
 		INSERT INTO cart_items(car, cart)
 		VALUES ($1, $2)
 		ON CONFLICT (car) DO NOTHING
@@ -28,7 +28,7 @@ async function addCarToCart({car, cart}){
 		WHERE id=$1
 		RETURNING *;
 		`, [car])
-		return cartcar
+		return cartCar
 	} catch (error) {
 		throw error;
 	}
