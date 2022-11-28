@@ -1,5 +1,6 @@
 const {client} = require("./client");
 const bcrypt = require("bcrypt");
+const { createCart } = require("./cart");
 const SALT_COUNT = 10;
 
 async function createUser({ email, password, admin }) {
@@ -17,7 +18,7 @@ async function createUser({ email, password, admin }) {
     );
 
     delete user.password;
-
+createCart(user.id)
     return user;
   } catch (error) {
     throw error;

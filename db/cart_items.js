@@ -22,6 +22,12 @@ async function addCarToCart({car, cart}){
 		ON CONFLICT (car) DO NOTHING
 		RETURNING *;
 		`, [car, cart]);
+		const{ rows: [vehicle], }= await client.query(`
+		UPDATE cars
+		SET inventory=0
+		WHERE id=$1
+		RETURNING *;
+		`, [car])
 		return cartcar
 	} catch (error) {
 		throw error;
@@ -85,6 +91,12 @@ async function removeCartItems(id){
 			RETURNING *;
 			`, [id]
 		)
+		const{ rows: [vehicle], }= await client.query(`
+		UPDATE cars
+		SET inventory=1
+		WHERE id=${cart_items.car}
+		RETURNING *;
+		`)
 		return car;
     } catch (error) {
       throw error;

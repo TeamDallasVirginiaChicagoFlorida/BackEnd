@@ -36,6 +36,7 @@ async function checkout(id) {
             `,
       [id]
     );
+    createCart(cart.buyer)
     return cart;
   } catch (error) {
     throw error;
@@ -68,7 +69,7 @@ async function getOrderHistory(buyer) {
   try {
     console.log("is car being returned");
     const {
-      rows: [cart],
+      rows: cart,
     } = await client.query(
       `
                 SELECT *
@@ -77,7 +78,8 @@ async function getOrderHistory(buyer) {
                 `,
       [buyer]
     );
-    return cart;
+    const withCars = attachCarsToCart(cart)
+    return withCars;
   } catch (error) {
     throw error;
   }
