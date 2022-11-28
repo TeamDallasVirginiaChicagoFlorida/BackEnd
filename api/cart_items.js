@@ -29,7 +29,7 @@ async (req, res, next) => {
 		next({
 		  error: "403Error",
 		  name: "UnauthorizedUserError",
-		  message: `User ${req.user.username} is not allowed to update ${cartItems}`,
+		  message: `User ${req.user.id} is not allowed to update ${cartItems}`,
 		});
 	  }
 	} else {
@@ -47,38 +47,30 @@ async (req, res, next) => {
 
 router.delete("./db/cart_items",
 requireUser,
-async (req, res, next) => {
+async (req, res) => {
   try {
-	const cartItems = req.params.cartItems;
+	const cartItems = await getCarsByCart(id)
 
-	const cart = await getRoutineActivityById(routineActivityId);
-
-	const routine = await getRoutineById(routineActivity.routineId);
-
-	if (routineActivity) {
-	  if (routineActivityId && routine.creatorId === req.user.id) {
-		const destroyedRoutineActivity = await destroyRoutineActivity(
-		  routineActivityId
-		);
-
-		res.send(destroyedRoutineActivity);
-	  } else {
-		res.statusCode = 403;
-		next({
-		  error: "deleteError",
-		  name: "not authorized user",
-		  message: `User ${req.user.username} is not allowed to delete ${routine.name}`,
-		});
-	  }
-	} else {
-	  next({
-		error: "noRoutineError",
-		name: "Does not exist",
-		message: `${routineActivityId} does not exist`,
-	  });
+	if (req.user.id == cartItems.buyerId ){
+		const cartItemDeleted = await removeCartItems(id)
+		res.send(cartItemDeleted)
+	}else {
+		res.statusCode = 403
+		res.send({
+			message: `User ${req.user.id} is not allowed to delete ${cartItems.buyerId}`,
+			name: "Unauthorized to Delete",
+			error: "Unauthorized user can't delete."
+		})
 	}
-  } catch ({ error, name, message }) {
-	next({ error, name, message });
+	}
+
+
+   catch (error) {
+	throw error
   }
-}
-);
+  
+});
+
+
+
+module.exports = router
