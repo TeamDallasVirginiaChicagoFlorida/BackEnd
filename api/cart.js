@@ -1,8 +1,7 @@
 const express = require("express");
-const { getUserByEmail } = require("../db");
+const { getUserByEmail, checkout, getOrderHistory, getUser } = require("../db/users");
 const { requireUser } = require("./utils");
 const router = express.Router();
-const {getUserByEmail} = require('../db');
 const { getCartByBuyer } = require("../db/cart");
 
 // GET  /api/carts
@@ -18,3 +17,25 @@ router.get("/", requireUser, async(req, res, next)=>{
     }
 })
 
+router.patch("/:id", async(req, res, next)=>{
+    const {id} = req.params;
+    try {
+        const userCheckout = await checkout(id);
+        res.send(userCheckout);
+    } catch (error) {
+        throw error;
+    }
+})
+
+router.get("/:orderhistory", requireUser, async(req, res, next)=>{
+    const userData = await getUserByEmail(req.user.email)
+    const buyer = userData.id;
+   try {
+       const history = await getOrderHistory(buyer)
+       res.send(history)
+   } catch (error) {
+        throw error;
+   }
+})
+
+module.exports = router;

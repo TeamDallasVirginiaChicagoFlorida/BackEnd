@@ -48,6 +48,14 @@ router.use('/users', usersRouter);
 const carsRouter = require('./cars');
 router.use('/cars', carsRouter);
 
+// ROUTER: /api/cart
+const cartRouter = require('./cart');
+router.use('/cart', cartRouter);
+
+// // ROUTER: /api/cart_items
+// const cart_items = require('./cart_items');
+// router.use('/cart_items', cart_items);
+
 
 // ROUTER: 404 Error
 router.get('/unknown', async (req, res, next) => {
@@ -56,5 +64,7 @@ router.get('/unknown', async (req, res, next) => {
         message:'error'
     })
 })
+
+
 
 module.exports = router;
