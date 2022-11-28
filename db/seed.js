@@ -13,7 +13,8 @@ const {
     getOrderHistory,
     addCarToCart, 
 	getCarsByCart,
-	removeCartItems
+	removeCartItems,
+    attachCarsToCart
 } = require('./index')
 const {client} = require ('./client')
 const dataCopy = require ('./databank')

@@ -28,6 +28,38 @@ async function addCarToCart({car, cart}){
 	}
 }
 
+async function attachCarsToCart(carts){
+    const cartsToReturn = [...carts];
+    const binds = carts.map((_, index)=>`$${index + 1}`)
+    //to create bindings $1, $2, $3 etc. for however many carts there are
+    const cartIds = carts.map((cart) => {return cart.id;});
+    if (!cartIds || cartIds.length===0) {return[]}
+    //if there are no carts return an empty array
+    try {
+        //get the cars, JOIN with cart_items (so we can get a cartID), and only those that have the cartID on the cart_items table join
+        const {rows: cars } = await client.query(
+            `
+            SELECT cars.*, cart_items.car AS "carId", cart_items.cart AS "cartId", cart_items.quantity
+            FROM cars
+            JOIN cart_items ON cart_items."carId" = cars.id
+            WHERE cart_items."cartId" IN (${binds});
+            `, cartIds
+        );
+        //loop over the carts
+        for (const cart of cartsToReturn) {
+            // filter the cars to only include those that have this cartId
+            const carsToAdd = cars.filter(
+                (car) => car.cartId === cart.id
+            );
+            //attach the car to each cart (creating a new key value pair)
+            cart.cars = carsToAdd;
+        }
+        return cartsToReturn;
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
 async function getCarsByCart(id){
 	try {
 		const {rows: cars } = await client.query(`
@@ -64,4 +96,5 @@ async function removeCartItems(id){
 	addCarToCart,
 	getCarsByCart,
 	removeCartItems,
+	attachCarsToCart
   }
