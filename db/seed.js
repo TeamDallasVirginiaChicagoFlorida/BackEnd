@@ -174,10 +174,10 @@ async function testDb() {
         // console.log("Result: ", allCars)
         // console.log("getAllCars function works")
 
-        // console.log("Checking getCarById function")
-        // const car = await getCarById(1);
-        // console.log("Result:", car)
-        // console.log("getCarById function works")
+        console.log("Checking getCarById function")
+        const car = await getCarById(1);
+        console.log("Result:", car)
+        console.log("getCarById function works")
 
         console.log("Testing getCartByBuyer function")
         const test = await getCartByBuyer(6)
@@ -190,17 +190,17 @@ async function testDb() {
         console.log('Finished testing getCarsByCart')
 
 
-        // console.log("Testing checkout and getOrderHistory")
-        // const testingfunctions = await checkout(1)
-        // const orderHistory = await getOrderHistory(6)
-        // await createCart(6)
-        // console.log('Finished testing checkout and getOrderHistory')
+        console.log("Testing checkout and getOrderHistory")
+        const testingfunctions = await checkout(1)
+        const orderHistory = await getOrderHistory(6)
+        await createCart(6)
+        console.log('Finished testing checkout and getOrderHistory')
 
-        console.log('Testing removeCartItems')
-        const testingRemoveItemsFromCart = await removeCartItems(1)
-        const theCartAfterItemRemoved = await getCarsByCart(1)
-        console.log("Result: ", testingRemoveItemsFromCart, "this is the cart", theCartAfterItemRemoved)
-        console.log('Finished testing removeCartItems')
+        // console.log('Testing removeCartItems')
+        // const testingRemoveItemsFromCart = await removeCartItems(1)
+        // const theCartAfterItemRemoved = await getCarsByCart(1)
+        // console.log("Result: ", testingRemoveItemsFromCart, "this is the cart", theCartAfterItemRemoved)
+        // console.log('Finished testing removeCartItems')
   
 
         console.log("Finished with database tests")

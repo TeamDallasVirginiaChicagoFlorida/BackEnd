@@ -1,8 +1,9 @@
 const { client } = require("./client");
-const {getCarsByCart} = require('./index')
+const { getCarsByCart } = require("./index");
+const { attachCarsToCart } = require("./cart_items");
 
 //creates an empty cart to be done by default when a user is created, or after checkout to create a new empty cart
-async function createCart( buyer ) {
+async function createCart(buyer) {
   try {
     const {
       rows: [cart],
@@ -14,7 +15,7 @@ async function createCart( buyer ) {
             `,
       [buyer]
     );
-    console.log(cart, 'this is the cart part1')
+    console.log(cart, "this is the cart part1");
     return cart;
   } catch (error) {
     throw error;
@@ -45,7 +46,7 @@ async function checkout(id) {
 async function getCartByBuyer(buyer) {
   try {
     const {
-      rows: [cart],
+      rows: cart,
     } = await client.query(
       `
                 SELECT *
@@ -54,7 +55,9 @@ async function getCartByBuyer(buyer) {
                 `,
       [buyer]
     );
-    return cart;
+    const withCars = await attachCarsToCart(cart);
+
+    return withCars;
   } catch (error) {
     throw error;
   }
@@ -63,7 +66,7 @@ async function getCartByBuyer(buyer) {
 //return all past carts that have already been checked out to show on the order history component
 async function getOrderHistory(buyer) {
   try {
-    console.log( 'is car being returned')
+    console.log("is car being returned");
     const {
       rows: [cart],
     } = await client.query(
@@ -74,8 +77,7 @@ async function getOrderHistory(buyer) {
                 `,
       [buyer]
     );
-      return cart;
-
+    return cart;
   } catch (error) {
     throw error;
   }
