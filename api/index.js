@@ -52,9 +52,9 @@ router.use('/cars', carsRouter);
 const cartRouter = require('./cart');
 router.use('/cart', cartRouter);
 
-// // ROUTER: /api/cart_items
-// const cart_items = require('./cart_items');
-// router.use('/cart_items', cart_items);
+// ROUTER: /api/cart_items
+const cart_items = require('./cart_items');
+router.use('/cart_items', cart_items);
 
 
 // ROUTER: 404 Error

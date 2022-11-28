@@ -1,9 +1,9 @@
 const express = require("express")
 const router = express.Router();
 const { requireUser } = require('./utils')
-const { addCarToCart, getCarsByCart, getCartByBuyer, removeCartItems, createCart } = require('../db');
+const { getCarsByCart, removeCartItems, addCarToCart } = require('../db/cart_items');
 
-router.patch("/.db/cart_items",
+router.patch("/",
 requireUser,
 async (req, res, next) => {
   try {
@@ -45,7 +45,7 @@ async (req, res, next) => {
 }
 );
 
-router.delete("./db/cart_items",
+router.delete("/",
 requireUser,
 async (req, res) => {
   try {
@@ -67,10 +67,18 @@ async (req, res) => {
 
    catch (error) {
 	throw error
-  }
-  
+}
 });
 
+router.post("/", requireUser, async (req, res, next)=>{
+	const {car, cart}= req.body
+	try {
+		const addedCar = await addCarToCart({car, cart})
+		res.send(addedCar)
+	} catch (error) {
+		throw error
+	}
+})
 
 
 module.exports = router

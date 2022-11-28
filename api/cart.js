@@ -1,8 +1,8 @@
 const express = require("express");
-const { getUserByEmail, checkout, getOrderHistory, getUser } = require("../db/users");
+const { getUserByEmail, getUser } = require("../db/users");
 const { requireUser } = require("./utils");
 const router = express.Router();
-const { getCartByBuyer } = require("../db/cart");
+const { getCartByBuyer, checkout,  getOrderHistory } = require("../db/cart");
 
 // GET  /api/carts
 

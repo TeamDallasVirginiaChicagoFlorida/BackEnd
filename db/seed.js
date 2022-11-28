@@ -30,7 +30,7 @@ async function createTables(){
             email VARCHAR(255) UNIQUE NOT NULL,
             password VARCHAR(255) UNIQUE NOT NULL,
             photo_url VARCHAR(255),
-            admin BOOLEAN DEFAULT false
+            admin BOOLEAN DEFAULT false NOT NULL
         );`
         )
         await client.query(`
