@@ -101,7 +101,9 @@ async function getCarById(carId) {
     }
   }
   
+  ///Edit this and test***
   async function updateCarPost(carId, fields = {}) {
+    console.log('this is checking to see if we made it here')
     const { tags } = fields;
     delete fields.tags;
 
@@ -140,6 +142,15 @@ async function getCarById(carId) {
     }
   }
 
+
+  ///FINISH AND TEST
+  async function deleteCar(){
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
   
 
 

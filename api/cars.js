@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllCars, getCarById, createCarPost } = require("../db");
+const { getAllCars, getCarById, createCarPost, updateCarPost } = require("../db/cars");
 const router = express.Router();
 const { requireUser } = require("./utils");
 
@@ -187,7 +187,7 @@ router.patch("/:carId", requireUser, async (req, res, next) => {
     const originalCarPost = await getCarById(carId);
 
     if (originalCarPost.seller === req.user.id) {
-      const updatedCarPost = await updatedCarPost(carId, updateFields);
+      const updatedCarPost = await updateCarPost(carId, updateFields);
       res.send({ post: updatedCarPost });
     } else {
       next({
