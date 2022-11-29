@@ -83,9 +83,9 @@ router.delete("/:carId", requireUser, async (req, res, next) => {
     const post = await getCarById(req.params.carId);
 
     if (post && post.seller === req.user.id) {
-      const deletedCar = await deleteCar(car.id, { active: false });
+      const deletedCar = await deleteCar(req.params.carId);
 
-      res.send({ post: deletedCar });
+      res.send(deletedCar);
     } else {
       // if there was a post, throw UnauthorizedUserError, otherwise throw PostNotFoundError
       next(
