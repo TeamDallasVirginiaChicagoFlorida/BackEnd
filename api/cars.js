@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllCars, getCarById, createCarPost, updateCarPost } = require("../db/cars");
+const { getAllCars, getCarById, createCarPost, updateCarPost, deleteCar } = require("../db/cars");
 const router = express.Router();
 const { requireUser } = require("./utils");
 
@@ -83,9 +83,9 @@ router.delete("/:carId", requireUser, async (req, res, next) => {
     const post = await getCarById(req.params.carId);
 
     if (post && post.seller === req.user.id) {
-      const updatedPost = await updateCarPost(car.id, { active: false });
+      const deletedCar = await deleteCar(car.id, { active: false });
 
-      res.send({ post: updatedCarPost });
+      res.send({ post: deletedCar });
     } else {
       // if there was a post, throw UnauthorizedUserError, otherwise throw PostNotFoundError
       next(
