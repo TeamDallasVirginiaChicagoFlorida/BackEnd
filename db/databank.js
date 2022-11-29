@@ -1,6 +1,6 @@
 const data = [
   {
-    seller: 2,
+    seller: 1,
     type: "Sedan",
     make: "Toyota",
     model: "Corolla",
@@ -160,7 +160,7 @@ const data = [
     new_used: "used",
   },
   {
-    seller: 1,
+    seller: 3,
     type: "Sedan",
     make: "Mercury",
     model: "Grand Marquis LS",
@@ -180,7 +180,7 @@ const data = [
     new_used: "used",
   },
   {
-    seller: 1,
+    seller: 5,
     type: "Coupe",
     make: "MINI",
     model: "Cooper",
@@ -200,7 +200,7 @@ const data = [
     new_used: "used",
   },
   {
-    seller: 1,
+    seller: 5,
     type: "SUV",
     make: "Kia",
     model: "Sorento",
@@ -340,7 +340,7 @@ const data = [
     new_used: "used",
   },
   {
-    seller: 1,
+    seller: 3,
     type: "Sedan",
     make: "Subaru",
     model: "Impreza",
@@ -400,7 +400,7 @@ const data = [
     new_used: "used",
   },
   {
-    seller: 1,
+    seller: 2,
     type: "Sedan",
     make: "Volvo",
     model: "S60",
@@ -520,7 +520,7 @@ const data = [
     new_used: "used",
   },
   {
-    seller: 1,
+    seller: 2,
     type: "SUV",
     make: "Land Rover",
     model: "Discovery Sport",
@@ -640,7 +640,7 @@ const data = [
     new_used: "used",
   },
   {
-    seller: 1,
+    seller: 3,
     type: "SUV",
     make: "Infiniti",
     model: "QX80",
@@ -820,7 +820,7 @@ const data = [
     new_used: "used",
   },
   {
-    seller: 1,
+    seller: 3,
     type: "SUV",
     make: "Honda",
     model: "Element",
@@ -979,7 +979,7 @@ const data = [
     new_used: "used",
   },
   {
-    seller: 1,
+    seller: 2,
     type: "Truck",
     make: "GMC",
     model: "Canyon",
@@ -1019,7 +1019,7 @@ const data = [
     new_used: "used",
   },
   {
-    seller: 1,
+    seller: 2,
     type: "SUV",
     make: "GMC",
     model: "Acadia",

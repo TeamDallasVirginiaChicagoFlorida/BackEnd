@@ -182,10 +182,10 @@ async function testDb() {
         // console.log("updateCar function works")
 
 
-        console.log('Testing delete function')
-        const testDelete = await deleteCar(2);
-        console.log("Result:", testDelete)
-        console.log("deleteFunction works")
+        // console.log('Testing delete function')
+        // const testDelete = await deleteCar(2);
+        // console.log("Result:", testDelete)
+        // console.log("deleteFunction works")
 
         // console.log("Checking getCarById function")
         // const car = await getCarById(1);
