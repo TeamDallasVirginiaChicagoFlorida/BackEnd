@@ -144,20 +144,18 @@ async function updateCarPost(carId, fields = {}) {
 
 ///FINISH AND TEST
 async function deleteCar(id) {
-  try {
-    const deletedCars = await client.query(
-      `
-        DELETE FROM cars
-        WHERE cars.id=${id}
-        RETURNING *
-      `,
-      [id]
-    );
-    return deletedCars;
+  try{
+  const {rows: [deleteCar]} = await client.query(`
+  DELETE FROM cars
+  WHERE id=${id}
+  RETURNING *
+  ;`)
+  return deleteCar
   } catch (error) {
-    throw error;
+    throw error
   }
 }
+
 
 module.exports = {
   getAllCars,

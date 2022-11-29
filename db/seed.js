@@ -14,7 +14,9 @@ const {
     addCarToCart, 
 	getCarsByCart,
 	removeCartItems,
-    attachCarsToCart
+    attachCarsToCart,
+    deleteCar,
+    updateCarPost
 } = require('./index')
 const {client} = require ('./client')
 const dataCopy = require ('./databank')
@@ -154,47 +156,58 @@ async function testDb() {
     try {
         console.log("Starting database tests")
 
-        console.log("Checking getUser function")
-        const user = await getUser({email: "leo@me.com", password:"leocruzz"});
-        console.log("Result: ", user)
-        console.log("getUser function works")
+        // console.log("Checking getUser function")
+        // const user = await getUser({email: "leo@me.com", password:"leocruzz"});
+        // console.log("Result: ", user)
+        // console.log("getUser function works")
 
-        console.log("Checking getUserByEmail function")
-        const leo = await getUserByEmail("leo@me.com")
-        console.log("Result: ", leo)
-        console.log("getUserByEmail function works")
+        // console.log("Checking getUserByEmail function")
+        // const leo = await getUserByEmail("leo@me.com")
+        // console.log("Result: ", leo)
+        // console.log("getUserByEmail function works")
 
-        console.log("Checking getUserById function")
-        const lex = await getUserById(3)
-        console.log("Result: ", lex)
-        console.log("getUserById function works")
+        // console.log("Checking getUserById function")
+        // const lex = await getUserById(3)
+        // console.log("Result: ", lex)
+        // console.log("getUserById function works")
 
         // console.log("Checking getAllCars function")
         // const allCars = await getAllCars();
         // console.log("Result: ", allCars)
         // console.log("getAllCars function works")
 
-        console.log("Checking getCarById function")
-        const car = await getCarById(1);
-        console.log("Result:", car)
-        console.log("getCarById function works")
-
-        console.log("Testing getCartByBuyer function")
-        const test = await getCartByBuyer(6)
-        console.log("Result:", test)
-        console.log('Finished testing getCartByBuyer')
-
-        console.log('Testing getCarsByCart')
-        const testingGetCarsByCart = await getCarsByCart(1)
-        console.log("Result:", testingGetCarsByCart)
-        console.log('Finished testing getCarsByCart')
+        // console.log("Checking updateCarPost function")
+        // const updateCar = await updateCarPost(1);
+        // console.log("Result:", updateCar)
+        // console.log("updateCar function works")
 
 
-        console.log("Testing checkout and getOrderHistory")
-        const testingfunctions = await checkout(1)
-        const orderHistory = await getOrderHistory(6)
-        await createCart(6)
-        console.log('Finished testing checkout and getOrderHistory')
+        console.log('Testing delete function')
+        const testDelete = await deleteCar(2);
+        console.log("Result:", testDelete)
+        console.log("deleteFunction works")
+
+        // console.log("Checking getCarById function")
+        // const car = await getCarById(1);
+        // console.log("Result:", car)
+        // console.log("getCarById function works")
+
+        // console.log("Testing getCartByBuyer function")
+        // const test = await getCartByBuyer(6)
+        // console.log("Result:", test)
+        // console.log('Finished testing getCartByBuyer')
+
+        // console.log('Testing getCarsByCart')
+        // const testingGetCarsByCart = await getCarsByCart(1)
+        // console.log("Result:", testingGetCarsByCart)
+        // console.log('Finished testing getCarsByCart')
+
+
+        // console.log("Testing checkout and getOrderHistory")
+        // const testingfunctions = await checkout(1)
+        // const orderHistory = await getOrderHistory(6)
+        // await createCart(6)
+        // console.log('Finished testing checkout and getOrderHistory')
 
         // console.log('Testing removeCartItems')
         // const testingRemoveItemsFromCart = await removeCartItems(1)
