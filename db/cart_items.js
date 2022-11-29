@@ -94,7 +94,7 @@ async function removeCartItems(id){
 		const{ rows: [vehicle], }= await client.query(`
 		UPDATE cars
 		SET inventory=1
-		WHERE id=${cart_items.car}
+		WHERE id=${id}
 		RETURNING *;
 		`)
 		return car;

@@ -1,6 +1,6 @@
 const data = [
   {
-    seller: 5,
+    seller: 2,
     type: "Sedan",
     make: "Toyota",
     model: "Corolla",
