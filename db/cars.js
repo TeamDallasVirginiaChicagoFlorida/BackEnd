@@ -113,11 +113,10 @@ async function createCarPost({
 ///Edit this and test***
 async function updateCarPost(carId, fields = {}) {
   console.log("this is checking to see if we made it here");
-  const { tags } = fields;
-  delete fields.tags;
+  const { descriptions } = fields;
 
   const setString = Object.keys(fields)
-    .map((key, index) => `"${key}"=$${(index = 1)}`)
+    .map((key, index) => `"${key}"=$${(index + 1)}`)
     .join(",");
   try {
     if (setString.length > 0) {
@@ -132,7 +131,7 @@ async function updateCarPost(carId, fields = {}) {
       );
     }
 
-    if (tags === undefined) {
+    if (descriptions === undefined) {
       return await getCarById(carId);
     }
 
