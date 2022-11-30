@@ -141,8 +141,7 @@ async function createInitialCars() {
  async function createInitialCarts(){
     try{
         console.log('Starting to create initial carts...')
-        const georgeCart= await createCart(6)
-        await addCarToCart({car: 1, cart:1})
+        await addCarToCart({car: 1, cart:6})
         console.log('Finished creating initial carts')
     }catch(error){
         throw error
