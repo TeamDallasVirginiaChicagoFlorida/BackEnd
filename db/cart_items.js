@@ -37,7 +37,6 @@ async function addCarToCart({car, cart}){
 async function attachCarsToCart(carts){
     const cartsToReturn = [...carts];
     const binds = carts.map((_, index)=>`$${index + 1}`)
-	console.log(binds,"this is binds");
     //to create bindings $1, $2, $3 etc. for however many carts there are
     const cartIds = carts.map((cart) => {return cart.id;});
     if (!cartIds || cartIds.length===0) {return[]}
@@ -52,7 +51,6 @@ async function attachCarsToCart(carts){
             WHERE cart_items.cart IN (${binds});
             `, cartIds
         );
-		console.log(cars, "this is carszzzz")
         //loop over the carts
         for (const cart of cartsToReturn) {
             // filter the cars to only include those that have this cartId

@@ -4,9 +4,8 @@ const router = express.Router();
 const { requireUser } = require("./utils");
 
 router.get("/", async (req, res, next) => {
-  const postData = {};
   try {
-    const allCars = await getAllCars(postData);
+    const allCars = await getAllCars();
     res.send(allCars);
   } catch (error) {
     next(error);
@@ -24,7 +23,6 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.post("/", requireUser, async (req, res, next) => {
-  console.log("req dot body", req.body);
   const {
     type,
     make,
@@ -123,14 +121,11 @@ router.patch("/:carId", requireUser, async (req, res, next) => {
     inventory,
     photo_url,
     drive_type,
-    new_used = "",
+    new_used ,
   } = req.body;
 
   const updateFields = {};
 
-  //   if ( && tags.length > 0) {
-  // 	updateFields.tags = tags.trim().split(/\s+/);
-  //   }
   if (type) {
     updateFields.type = type;
   }

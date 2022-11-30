@@ -55,7 +55,7 @@ async function createCarPost({
   inventory,
   photo_url,
   drive_type,
-  new_used = [],
+  new_used,
 }) {
   try {
     const {
@@ -110,7 +110,6 @@ async function createCarPost({
   }
 }
 
-///Edit this and test***
 async function updateCarPost(carId, fields = {}) {
   console.log("this is checking to see if we made it here");
   const { descriptions } = fields;
@@ -141,7 +140,6 @@ async function updateCarPost(carId, fields = {}) {
   }
 }
 
-///FINISH AND TEST
 async function deleteCar(id) {
   try{
   const {rows: [deleteCar]} = await client.query(`
